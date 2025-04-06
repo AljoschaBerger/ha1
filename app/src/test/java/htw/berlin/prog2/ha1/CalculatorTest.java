@@ -57,6 +57,22 @@ class CalculatorTest {
     }
 
     @Test
+    @DisplayName("should display the result after dividing two positive numbers")
+    void testDivisionPositiveNumbers() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(3);
+        calc.pressEqualsKey();
+
+        String expected = "3";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
     @DisplayName("should display error when drawing the square root of a negative number")
     void testSquareRootOfNegative() {
         Calculator calc = new Calculator();
@@ -87,6 +103,10 @@ class CalculatorTest {
 
         assertEquals(expected, actual);
     }
+
+
+
+
 
 
     //TODO hier weitere Tests erstellen
