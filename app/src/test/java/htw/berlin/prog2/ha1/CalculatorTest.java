@@ -72,6 +72,7 @@ class CalculatorTest {
         assertEquals(expected, actual);
     }
 
+
     @Test
     @DisplayName("should display error when drawing the square root of a negative number")
     void testSquareRootOfNegative() {
@@ -99,6 +100,22 @@ class CalculatorTest {
         calc.pressDigitKey(8);
 
         String expected = "1.78";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+    }
+
+    @Test
+    @DisplayName("check press clear key")
+    void testClearKey() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(5);
+        calc.pressBinaryOperationKey("+");
+        calc.pressClearKey();
+        calc.pressEqualsKey();
+
+        String expected = "5";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
