@@ -118,7 +118,7 @@ class CalculatorTest {
 
         String expected = "5";
         String actual = calc.readScreen();
-        
+
         assertEquals(expected, actual);
     }
 
@@ -128,5 +128,21 @@ class CalculatorTest {
 
 
     //TODO hier weitere Tests erstellen
+
+    @Test
+    @DisplayName("negative Number should become positive after pressing negativeButton")
+    void testPressNegative() {
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(9);
+        calc.pressNegativeKey();
+        calc.pressEqualsKey();
+
+        String expected = "-9";
+        String actual = calc.readScreen();
+
+        assertEquals(expected, actual);
+
+    }
 }
 
