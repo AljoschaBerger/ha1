@@ -1,5 +1,6 @@
 package htw.berlin.prog2.ha1;
 
+
 /**
  * Eine Klasse, die das Verhalten des Online Taschenrechners imitiert, welcher auf
  * https://www.online-calculator.com/ aufgerufen werden kann (ohne die Memory-Funktionen)
@@ -7,6 +8,8 @@ package htw.berlin.prog2.ha1;
  * Enthält mit Absicht noch diverse Bugs oder unvollständige Funktionen.
  */
 public class Calculator {
+
+    private boolean used = false;
 
     private String screen = "0";
 
@@ -45,9 +48,14 @@ public class Calculator {
      * im Ursprungszustand ist.
      */
     public void pressClearKey() {
-        screen = "0";
-        latestOperation = "";
-        latestValue = 0.0;
+        if(!used){
+            screen = "0";
+            used = true;
+        }
+        else {
+            latestValue = 0.0;
+            latestOperation = "";
+        }
     }
 
     /**
@@ -81,6 +89,7 @@ public class Calculator {
             default -> throw new IllegalArgumentException();
         };
         screen = Double.toString(result);
+        if(screen.equals("Infinity")) screen = "Error";
         if(screen.equals("NaN")) screen = "Error";
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
 
@@ -106,6 +115,7 @@ public class Calculator {
      */
     public void pressNegativeKey() {
         screen = screen.startsWith("-") ? screen.substring(1) : "-" + screen;
+
     }
 
     /**
@@ -129,5 +139,19 @@ public class Calculator {
         if(screen.equals("Infinity")) screen = "Error";
         if(screen.endsWith(".0")) screen = screen.substring(0,screen.length()-2);
         if(screen.contains(".") && screen.length() > 11) screen = screen.substring(0, 10);
+    }
+
+    public static void main(String[] args) {
+        double i = 55;
+        double b = 0;
+
+        Calculator calc = new Calculator();
+
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
+
+        System.out.println(calc.readScreen());
     }
 }
