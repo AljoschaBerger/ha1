@@ -130,15 +130,16 @@ class CalculatorTest {
     //TODO hier weitere Tests erstellen
 
     @Test
-    @DisplayName("negative Number should become positive after pressing negativeButton")
+    @DisplayName("check inverse with division by zero")
     void testPressNegative() {
         Calculator calc = new Calculator();
 
-        calc.pressDigitKey(9);
-        calc.pressNegativeKey();
-        calc.pressEqualsKey();
+        calc.pressDigitKey(1);
+        calc.pressBinaryOperationKey("/");
+        calc.pressDigitKey(0);
+        calc.pressUnaryOperationKey("1/x");
 
-        String expected = "-9";
+        String expected = "Error";
         String actual = calc.readScreen();
 
         assertEquals(expected, actual);
